@@ -1,11 +1,12 @@
 #import libraries
 import os
-
+import openai
 import langchain
 import pinecone
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
+
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
@@ -31,10 +32,14 @@ documents = chunk_data(docs=doc)
 print(documents)
 
 #Embedding Technique of OPENAI
-embeddings = GoogleGenerativeAIEmbeddings(
-    model="models/embedding-001",
-    api_key=os.environ["GEMINI_API_KEY"])
+#embeddings = OpenAIEmbeddings(api_key = os.environ['OPENAI_API_KEY'])
+
+
+## Embedding Technique Of OPENAI
+embeddings=OpenAIEmbeddings(api_key=os.environ['OPENAI_API_KEY'])
 print(embeddings)
 
-vectors = embeddings.embed_query("How are you?")
-print(vectors)
+vectors=embeddings.embed_query("")
+len(vectors)
+
+
